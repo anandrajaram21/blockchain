@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.4;
 
 contract Lottery {
     address public manager;
