@@ -1,5 +1,5 @@
 {
-  "name": "lottery",
+  "name": "crowdcoin",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs-extra": "^8.1.0",
     "ganache-cli": "^6.9.1",
     "mocha": "^7.1.0",
-    "solc": "^0.6.4",
-    "truffle-hdwallet-provider": "^1.0.17",
+    "solc": "^0.4.17",
     "web3": "^1.2.6"
   }
 }
