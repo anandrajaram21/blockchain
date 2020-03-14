@@ -3,8 +3,8 @@ const Web3 = require('web3')
 const { interface, bytecode } = require('./compile')
 
 const provider = new HDWalletProvider(
-	'invite vocal search dinosaur amount sister next excess yard toy melt uniform',
-	'https://rinkeby.infura.io/v3/176a25afde1a4d7aaadc5d9de52cd1e0'
+	'analyst enroll range easy tiny excite original spoon album float phone slab',
+	'https://rinkeby.infura.io/v3/0d6a6602df4440e397763eb9d15788aa'
 );
 const web3 = new Web3(provider)
 
