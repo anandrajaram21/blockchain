@@ -19,8 +19,6 @@ const deploy = async () => {
 	.send({ from: accounts[0] });
 
 	console.log('Contract deployed to', result.options.address);
-
-	return
 }
 
 deploy();
