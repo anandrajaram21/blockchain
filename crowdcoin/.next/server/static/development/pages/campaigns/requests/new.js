@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -285,6 +285,39 @@ class RequestNew extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       errorMessage: '',
       loading: false
     });
+
+    _defineProperty(this, "onSubmit", async event => {
+      event.preventDefault();
+      const campaign = Object(_ethereum_campaign__WEBPACK_IMPORTED_MODULE_4__["default"])(this.props.address);
+      const {
+        description,
+        value,
+        recipient
+      } = this.state;
+      this.setState({
+        loading: true,
+        errorMessage: ''
+      });
+
+      try {
+        const accounts = await _ethereum_web3__WEBPACK_IMPORTED_MODULE_3__["default"].eth.getAccounts();
+        await campaign.methods.createRequest(description, _ethereum_web3__WEBPACK_IMPORTED_MODULE_3__["default"].utils.toWei(value, 'ether'), recipient).send({
+          from: accounts[0]
+        });
+        _routes__WEBPACK_IMPORTED_MODULE_5__["Router"].pushRoute(`/campaigns/${this.props.address}/requests`);
+      } catch (err) {
+        this.setState({
+          errorMessage: err.message
+        });
+      }
+
+      this.setState({
+        loading: false,
+        value: '',
+        description: '',
+        recipient: ''
+      });
+    });
   }
 
   static async getInitialProps(props) {
@@ -297,9 +330,11 @@ class RequestNew extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   }
 
   render() {
-    return __jsx(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], null, __jsx("h3", null, "Create a request"), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Form"], {
+    return __jsx(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], null, __jsx(_routes__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+      route: `/campaigns/${this.props.address}/requests`
+    }, __jsx("a", null, "Back")), __jsx("h3", null, "Create a Request"), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Form"], {
       onSubmit: this.onSubmit,
-      error: !!this.errorMessage
+      error: !!this.state.errorMessage
     }, __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Form"].Field, null, __jsx("label", {
       htmlFor: ""
     }, "Description"), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Input"], {
@@ -321,7 +356,12 @@ class RequestNew extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       onChange: event => this.setState({
         recipient: event.target.value
       })
-    })), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    })), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Message"], {
+      error: true,
+      header: "Oops!",
+      content: this.state.errorMessage
+    }), __jsx(semantic_ui_react__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      loading: this.state.loading,
       primary: true
     }, "Create!")));
   }
@@ -346,7 +386,7 @@ module.exports = routes;
 
 /***/ }),
 
-/***/ 4:
+/***/ 7:
 /*!***********************************************!*\
   !*** multi ./pages/campaigns/requests/new.js ***!
   \***********************************************/
